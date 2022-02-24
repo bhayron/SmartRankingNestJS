@@ -7,10 +7,19 @@ import { v4 as uuidv4 } from 'uuid';
 @Injectable()
 export class JogadoresService {
   private jogadores: Jogador[] = [];
+
   private readonly logger = new Logger(JogadoresService.name);
 
   async criarAtualizarJogador(criaJogadorDto: CriarJogadorDto): Promise<void> {
-    await this.criar(criaJogadorDto);
+    const { email } = criaJogadorDto;
+    const jogadorEncontrado = await this.jogadores.find(
+      (jogador) => jogador.email === email,
+    );
+    if (jogadorEncontrado) {
+      await this.atualizar(jogadorEncontrado, criaJogadorDto);
+    } else {
+      await this.criar(criaJogadorDto);
+    }
   }
 
   async consultarTodosJogadores(): Promise<Jogador[]> {
@@ -29,9 +38,16 @@ export class JogadoresService {
       posicaoRanking: 1,
       urlFotoJogador: 'www.google.com.br/foto123.jpg',
     };
-    console.log(jogador);
 
     this.logger.log(`criaJogadorDto: ${JSON.stringify(jogador)}`);
     this.jogadores.push(jogador);
+  }
+
+  private atualizar(
+    jogadorEncontrado: Jogador,
+    criarJogadorDto: CriarJogadorDto,
+  ): void {
+    const { nome } = criarJogadorDto;
+    jogadorEncontrado.nome = nome;
   }
 }

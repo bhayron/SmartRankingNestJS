@@ -1,4 +1,4 @@
-import { Body, Controller, Post } from '@nestjs/common';
+import { Body, Controller, Get, Post } from '@nestjs/common';
 import { CriarJogadorDto } from './dtos/criar-jogador.dto';
 import { JogadoresService } from './jogadores.service';
 
@@ -11,6 +11,7 @@ export class JogadoresController {
   async criarAtualizarJogador(@Body() criaJogadorDto: CriarJogadorDto) {
     await this.jogadoresService.criarAtualizarJogador(criaJogadorDto);
   }
+  @Get()
   async consultarJogadores(): Promise<Jogador[]> {
     return this.jogadoresService.consultarTodosJogadores();
   }
