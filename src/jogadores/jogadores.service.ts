@@ -26,6 +26,9 @@ export class JogadoresService {
     return this.jogadores;
   }
 
+  async consultarJogadoresPeloEmail(email: string): Promise<Jogador> {
+    return;
+  }
   private criar(CriaJogadorDto: CriarJogadorDto): void {
     const { nome, email, telefoneCelular } = CriaJogadorDto;
 
