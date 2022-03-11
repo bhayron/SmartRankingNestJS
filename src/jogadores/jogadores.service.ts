@@ -37,7 +37,7 @@ export class JogadoresService {
     return jogadorEncontrado;
   }
 
-  async deletarJogador(email): Promise<void> {
+  async deletarJogador(email: string): Promise<void> {
     const jogadorEncontrado = this.jogadores.find(
       (jogador) => jogador.email === email,
     );
