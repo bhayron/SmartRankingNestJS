@@ -1,13 +1,13 @@
+import 'dotenv/config';
 import { Module } from '@nestjs/common';
 import { JogadoresModule } from './jogadores/jogadores.module';
 
 import { MongooseModule } from '@nestjs/mongoose';
-import { mongooseConfig } from './configs/mongo.config';
 
 @Module({
   imports: [
     MongooseModule.forRoot(
-      'mongodb+srv://bhayron:secretf5@cluster0.jufe8.mongodb.net/myFirstDatabase?retryWrites=true&w=majority',
+      process.env.MONGO_URL,
       // {
       //   useNewUrlParser: true,
       //   useCreateIndex: true,
