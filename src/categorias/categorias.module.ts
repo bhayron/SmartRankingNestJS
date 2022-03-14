@@ -8,6 +8,7 @@ import { JogadoresModule } from 'src/jogadores/jogadores.module';
 @Module({
   imports: [
     MongooseModule.forFeature([{ name: 'Categoria', schema: CategoriaSchema }]),
+    JogadoresModule,
   ],
   controllers: [CategoriasController],
   providers: [CategoriasService],
