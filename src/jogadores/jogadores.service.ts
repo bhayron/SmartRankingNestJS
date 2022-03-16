@@ -58,6 +58,7 @@ export class JogadoresService {
     if (!jogadorEncontrado) {
       throw new NotFoundException(`Jogador com id ${_id} não encontrado`);
     }
+
     return jogadorEncontrado;
   }
 
