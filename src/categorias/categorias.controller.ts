@@ -7,6 +7,7 @@ import {
   Get,
   Param,
   Put,
+  Query,
 } from '@nestjs/common';
 import { CriarCategoriaDto } from './dtos/criar-categoria.dto';
 import { Categoria } from './interfaces/categoria.interface';
@@ -25,17 +26,45 @@ export class CategoriasController {
     return await this.categoriasService.criarCategoria(criarCategoriaDto);
   }
 
+  /*
+    Desafio
+    Passamos a utilizado query parameters com o verbo Get
+    */
+
   @Get()
-  async consultarCategorias(): Promise<Array<Categoria>> {
+  async consultarCategorias(
+    @Query() params: string[],
+  ): Promise<Array<Categoria> | Categoria> {
+    const idCategoria = params['idCategoria'];
+    const idJogador = params['idJogador'];
+
+    if (idCategoria) {
+      return await this.categoriasService.consultarCategoriaPeloId(idCategoria);
+    }
+
+    if (idJogador) {
+      return await this.categoriasService.consultarCategoriaDoJogador(
+        idJogador,
+      );
+    }
+
     return await this.categoriasService.consultarTodasCategorias();
   }
 
-  @Get('/:categoria')
-  async consultarCategoriaPeloId(
-    @Param('categoria') categoria: string,
-  ): Promise<Categoria> {
-    return await this.categoriasService.consultarCategoriaPeloId(categoria);
-  }
+  /*
+    @Get()
+    async consultarCategorias(): Promise<Array<Categoria>> {
+        return await this.categoriasService.consultarTodasCategorias()
+    }
+    */
+
+  /*
+    @Get('/:categoria')
+    async consultarCategoriaPeloId(
+        @Param('categoria') categoria: string): Promise<Categoria> {
+            return await this.categoriasService.consultarCategoriaPeloId(categoria)
+        }
+    */
 
   @Put('/:categoria')
   @UsePipes(ValidationPipe)
