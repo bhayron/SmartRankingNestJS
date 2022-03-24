@@ -5,7 +5,7 @@ export class DesafioStatusValidacaoPipe implements PipeTransform {
   readonly statusPermitidos = [
     DesafioStatus.ACEITO,
     DesafioStatus.NEGADO,
-    DesafioStatus.CANCELADO
+    DesafioStatus.CANCELADO,
   ];
 
   transform(value: any) {
